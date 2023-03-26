@@ -1,45 +1,45 @@
+<script setup>
+import { useTodoListStore } from '@/stores/todoList'
+import { storeToRefs } from 'pinia'
+
+const store = useTodoListStore()
+
+// storeToRefs lets todoList keep reactivity:
+const { todoList } = storeToRefs(store)
+
+// destructuring action method doesn't require using storeToRefs:
+const { toggleCompleted, deleteTodo } = store
+
+</script>
+
 <template>
-  <div>
-    <p v-for="todo in todoList"
-       :key="todo.id"
-       class="item"
-    >
-      <span :class="{completed: todo.completed}"
-      >
-      {{ todo.item }}
-    </span>
-      <span
-          class="tick"
-          @click="store.toggleCompleted(todo.id)"
-      >
-      &checkmark;</span>
-      <span
-          class="cross"
-          @click="store.deleteTodo(todo.id)"
-      >
-      &#10060;</span>
-    </p>
+  <div v-for="todo in todoList" :key="todo.id" class="item">
+    <div class="content">
+      <span :class="{ completed: todo.completed }">{{ todo.item }}</span>
+      <div>
+        <span @click.stop="toggleCompleted(todo.id)">&#10004;</span>
+        <span @click="deleteTodo(todo.id)" class="x">&#10060;</span>
+      </div>
+    </div>
   </div>
 </template>
 
-<script setup>
-import {useTodoListStore} from "@/stores/todoList";
-import {storeToRefs} from "pinia";
-
-const store = useTodoListStore();
-const {todoList} = storeToRefs(store);
-</script>
-
 <style scoped>
-
-.tick, .cross {
+span {
+  margin: 0 10px;
   cursor: pointer;
 }
-
-.tick:hover, .cross:hover {
-  font-weight: bold;
+.item {
+  display: flex;
+  justify-content: center;
 }
-
+.content {
+  display: flex;
+  font-size: 1.5em;
+  justify-content: space-between;
+  width: 80vw;
+  padding: 5px;
+}
 .completed {
   text-decoration: line-through;
 }

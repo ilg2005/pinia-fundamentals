@@ -1,15 +1,20 @@
-<script setup lang="ts">
-import TodoApp from "@/components/TodoApp.vue";
+<script setup>
+import TodoApp from './components/TodoApp.vue'
 </script>
 
 <template>
-
   <todo-app />
-
 </template>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
 #app {
+  background-color: #597d9a;
+  display: flex;
+  justify-content: center;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
